@@ -79,6 +79,11 @@ prose:
           label: "Published"
           element: "checkbox"
           value: "true"
+      - name: "author"
+        field:
+          label: "Author"
+          element: "text"
+          value: "Author"
       - name: "layout"
         field:
           element: "hidden"
@@ -89,16 +94,16 @@ prose:
           label: "Title"
           element: "text"
           value: "An Awesome Headline!"
+      - name: "subtitle"
+        field:
+          label: "Subtitle"
+          element: "text"
+          value: "An Awesome Subtitle!"
       - name: "description"
         field:
           element: "text"
           label: "Description"
           placeholder: "Enter Post Description"
-      - name: "headline"
-        field:
-          element: "text"
-          label: "beadline"
-          placeholder: "Enter Post Headline"
       - name: "modified"
         field:
           element: "text"
@@ -113,16 +118,10 @@ prose:
           options:
             - name: "Personal"
               value: personal
-            - name: "Engineering"
-              value: engineering
-            - name: "Physics"
-              value: physics
-            - name: "Psychology"
-              value: psychology
+            - name: "Programming"
+              value: programming
             - name: "Interesting"
               value: interesting
-            - name: "Web-Development"
-              value: webdevelopment
           alterable: true
       - name: "tags"
         field:
