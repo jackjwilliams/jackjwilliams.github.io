@@ -5,25 +5,26 @@ published: false
 ---
 author: jjwilliams
 layout: post
-title: "Hangfire + SimpleInjector + MVC 5 Goodness"
+title: "Hangfire + SimpleInjector"
 date: 2015-08-27 22:00
-comments: true
+comments: false
 category: c#
 tags:
 - simpleinjector
 - c#
 - mvc5
 ---
-## Hangfire + MVC 5 Goodness
-I recently attended my first developer conference - [Code on the Beach 2015](https://www.codeonthebeach.com/) - and I must say - it was amazing! Among all the great talks, one caught my attention by Elijah Manor (Keynote) where he talks about [growing developers](https://www.codeonthebeach.com/cotb2015/session/3124/growing-developers). One thing I haven't done much of as a developer is share. I take all the time (reading blogs, researching answers to problems, stackoverflow, etc...), then I build - and leave it at that. This is my first attempt at giving.
+## Intro
+I recently attended my first developer conference - [Code on the Beach 2015](https://www.codeonthebeach.com/) - and I must say - it was amazing! Among all the great talks, one caught my attention by Elijah Manor (Keynote) where he talks about [growing developers](https://www.codeonthebeach.com/cotb2015/session/3124/growing-developers). One thing I haven't done much of as a developer is share. I take all the time (reading blogs, researching answers to problems, stackoverflow, etc...), then I build - and leave it at that. This is my first attempt at giving - on to the good stuff!
 
-I've been working on a project lately where some processes were getting bogged down due to some long running commands / queries. Rightly so, as the first iteration we were trying to get the concept up and running for the client - no optimization. When it came time to put some tasks in the background - we decided to go with [Hangfire](http://hangfire.io/). This post will focus mainly on the setting up and implementation of Hangfire with SimpleInjector and MVC 5.
+## Hangfire + SimpleInjector Goodness
+I've been working on a project lately where some processes were getting bogged down due to some long running commands / queries. Rightly so, as the first iteration I was trying to get the concept up and running - no optimization. When it came time to put some tasks in the background - we decided to go with [Hangfire](http://hangfire.io/). This post will focus mainly on the setting up and implementation of Hangfire with SimpleInjector and MVC 5.
 
 ### Database Setup with Local / Staging / Develop / Production Environments
-One issue we had upon first deploying Hangfire was how to automate the creation of the Hangfire databases. We had so many environments, and did not want to re-use the same database for each one - and definitely did not want to have to manually create each database. 
+One issue I had upon first deploying Hangfire was how to automate the creation of the Hangfire databases. With so many environments I did not want to re-use the same database for each and definitely didn't want to have to create each one manually.
 
-#### Local
-The [documentation](http://docs.hangfire.io/en/latest/configuration/using-sql-server.html) states that
+#### Local Dev Environment Problem
+The [documentation](http://docs.hangfire.io/en/latest/configuration/using-sql-server.html) states that:
 
 > SQL Server objects are being installed **automatically** from the SqlServerStorage constructor by executing statements described in the Install.sql file (which is located under the tools folder in the NuGet package). Which contains the migration script, so new versions of Hangfire with schema changes can be installed seamlessly, without your intervention.
 
@@ -31,3 +32,21 @@ But this never happened for me - locally we use a (LocalDb) file, and if it didn
 {% highlight c# %}
 An attempt to attach an auto-named database for file C:\....\App_Data\Hangfire.mdf failed. A database with the same name exists, or specified file cannot be opened, or it is located on UNC share.
 {% endhighlight %}
+
+Bare with me as I'm still learning Jekyll + Markdown + Pygments (how can I do error highlighting?!)
+
+##### Solution
+After mucking around for awhile I decided to use something I know quite a bit about: Entity Framework. EF makes it easy to create (and even migrate, even though we dont need that for Hangfire) databases automatically.  All I really needed was one DbContext class, and here it is:
+
+{% highlight c# %}
+public class HangfireContext : DbContext
+    {
+        public HangfireContext() : base("name=HangfireContext")
+        {
+            Database.SetInitializer<HangfireContext>(null);
+            Database.CreateIfNotExists();
+        }
+    }
+{% endhighlight %}
+
+What does this give me? Well in all of my web.configs (Develop, Production, Staging, etc...) the database points to the correct server and file (Hangfire_Staging, Hangfire_Developer, (LocalDb) for local dev). This creates the database for me in any new environment I stand up!
