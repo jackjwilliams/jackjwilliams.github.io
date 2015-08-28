@@ -40,7 +40,7 @@ Bare with me as I'm still learning Jekyll + Markdown + Pygments (how can I do er
 After mucking around for awhile I decided to use something I know quite a bit about: Entity Framework. EF makes it easy to create (and even migrate, even though we dont need that for Hangfire) databases automatically.  All I really needed was one DbContext class, and here it is:
 
 {% highlight c# %}
-public class HangfireContext : DbContext
+    public class HangfireContext : DbContext
     {
         public HangfireContext() : base("name=HangfireContext")
         {
@@ -50,4 +50,7 @@ public class HangfireContext : DbContext
     }
 {% endhighlight %}
 
-What does this give me? Well in all of my web.configs (Develop, Production, Staging, etc...) the database points to the correct server and file (Hangfire_Staging, Hangfire_Developer, (LocalDb) for local dev). This creates the database for me in any new environment I stand up!
+What does this give me? Well in all of my web.configs (Develop, Production, Staging, etc...) the database points to the correct server and database (Hangfire_Staging, Hangfire_Developer, (LocalDb) for local dev). This creates the database for me in any new environment I stand up!
+
+#### Initialization
+
