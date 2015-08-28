@@ -83,7 +83,7 @@ prose:
         field:
           label: "Author"
           element: "text"
-          value: "Author"
+          value: "author"
       - name: "layout"
         field:
           element: "hidden"
@@ -93,17 +93,12 @@ prose:
         field:
           label: "Title"
           element: "text"
-          value: "An Awesome Headline!"
+          value: "Title"
       - name: "subtitle"
         field:
           label: "Subtitle"
           element: "text"
-          value: "An Awesome Subtitle!"
-      - name: "description"
-        field:
-          element: "text"
-          label: "Description"
-          placeholder: "Enter Post Description"
+          value: "Subtitle"
       - name: "modified"
         field:
           element: "text"
