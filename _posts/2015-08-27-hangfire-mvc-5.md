@@ -5,7 +5,7 @@ published: false
 ---
 author: jjwilliams
 layout: post
-title: "Hangfire + SimpleInjector"
+title: "Hangfire"
 date: 2015-08-27 22:00
 comments: false
 category: c#
@@ -29,8 +29,8 @@ The [documentation](http://docs.hangfire.io/en/latest/configuration/using-sql-se
 
 > SQL Server objects are being installed **automatically** from the SqlServerStorage constructor by executing statements described in the Install.sql file (which is located under the tools folder in the NuGet package). Which contains the migration script, so new versions of Hangfire with schema changes can be installed seamlessly, without your intervention.
 
-But this never happened for me - locally we use a (LocalDb) file, and if it didn't exist Hangfire barfed:
-{% highlight c# %}
+But this never happened for me - locally I use a (LocalDb) file, and if it didn't exist Hangfire barfed:
+{% highlight xml %}
 An attempt to attach an auto-named database for file C:\....\App_Data\Hangfire.mdf failed. A database with the same name exists, or specified file cannot be opened, or it is located on UNC share.
 {% endhighlight %}
 
