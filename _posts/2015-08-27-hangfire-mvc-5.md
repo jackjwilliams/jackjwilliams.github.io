@@ -40,7 +40,7 @@ Bare with me as I'm still learning Jekyll + Markdown + Pygments (how can I do er
 After mucking around for awhile I decided to use something I know quite a bit about: Entity Framework. EF makes it easy to create (and even migrate, even though we dont need that for Hangfire) databases automatically.  All I really needed was one DbContext class, and here it is:
 
 {% highlight c# %}
-    public class HangfireContext : DbContext
+	public class HangfireContext : DbContext
     {
         public HangfireContext() : base("name=HangfireContext")
         {
