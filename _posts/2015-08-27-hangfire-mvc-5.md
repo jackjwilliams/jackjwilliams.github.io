@@ -9,6 +9,7 @@ title: "Hangfire + SimpleInjector"
 date: 2015-08-27 22:00
 comments: false
 category: c#
+published: true
 tags:
 - simpleinjector
 - c#
