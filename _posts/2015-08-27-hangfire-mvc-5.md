@@ -2,6 +2,18 @@
 published: false
 ---
 
+---
+author: jjwilliams
+layout: post
+title: "Hangfire + SimpleInjector + MVC 5 Goodness"
+date: 2015-08-27 22:00
+comments: true
+category: c#
+tags:
+- simpleinjector
+- c#
+- mvc5
+---
 ## Hangfire + MVC 5 Goodness
 I recently attended my first developer conference - [Code on the Beach 2015](https://www.codeonthebeach.com/) - and I must say - it was amazing! Among all the great talks, one caught my attention by Elijah Manor (Keynote) where he talks about [growing developers](https://www.codeonthebeach.com/cotb2015/session/3124/growing-developers). One thing I haven't done much of as a developer is share. I take all the time (reading blogs, researching answers to problems, stackoverflow, etc...), then I build - and leave it at that. This is my first attempt at giving.
 
