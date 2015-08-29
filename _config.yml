@@ -1,6 +1,7 @@
 title:            Jacked
 description:      "Coding and stuff"
 logo:             logo.png
+logo_inverse:     logo_inverse.png
 disqus_shortname: 
 share:            true
 dropcap:	   true
