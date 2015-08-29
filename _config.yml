@@ -116,11 +116,6 @@ prose:
             - name: "Personal"
               value: personal
           alterable: true
-      - name: "tags"
-        field:
-          element: "text"
-          label: "Tags"
-          placeholder: "Enter tags, separated by spaces"
       - name: "mathjax"
         field:
           element: "checkbox"
@@ -139,4 +134,3 @@ prose:
 
 gems:
 - jemoji
-
