@@ -28,7 +28,7 @@ published: true
 
 Thanks for taking the time to check out my blog - this is my first! I recently went to a developer conference and learned it is about time I share some knowledge and quit taking so much. This is my attempt to do that. 
 
-I'm a developer by day and well, by night too. 
+I'm a developer by day and well, by night too. I develop all the things.
 
 My primary focus over the last few years has been C# .NET MVC (2/3/4/5), Android and a sprinkling of Ruby on Rails.
 
