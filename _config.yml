@@ -12,10 +12,10 @@ url:        	 http://localhost:4000
 # Owner/author information
 owner:
   name:           Jack Williams
-  avatar:         
+  avatar:         me.jpg
   email:          williams.jackj@gmail.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    At some point a developer must stop taking and start giving.
+  description:    At some point a developer must stop taking and start giving back.
   # Social networking links used in footer. Update and remove as you like.
   twitter:        jackkedd
   facebook:       
@@ -25,7 +25,7 @@ owner:
   google_plus:    
 
 # Analytics and webmaster tools stuff goes here
-google_analytics:   
+google_analytics: UA-66843455-1
 google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:         
@@ -61,7 +61,7 @@ kramdown:
   use_coderay: false
 
   coderay:
-    coderay_line_numbers: 
+    coderay_line_numbers: true
     coderay_line_numbers_start: 1
     coderay_tab_width: 4
     coderay_bold_every: 10
