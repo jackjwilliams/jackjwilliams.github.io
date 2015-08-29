@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /about/index.html
-title: Amey Jadiye
+title: Jack Williams
 tags: 
   - Amey
   - Jadiye
