@@ -104,30 +104,23 @@ prose:
           element: "text"
           label: "Has this page been modified?"
           placeholder: "YYYY-MM-DD"
-      - name: "categories"
+      - name: "category"
         field:
-          element: "multiselect"
-          label: "Add categories"
-          placeholder: "Choose categories"
+          element: "select"
+          label: "Add category"
+          placeholder: "Choose category"
           value: personal
           options:
+            - name: "C#"
+              value: csharp
             - name: "Personal"
               value: personal
-            - name: "Programming"
-              value: programming
-            - name: "Interesting"
-              value: interesting
           alterable: true
       - name: "tags"
         field:
           element: "text"
           label: "Tags"
           placeholder: "Enter tags, separated by spaces"
-      - name: "imagefeature"
-        field:
-          element: "text"
-          label: "Featured Image"
-          placeholder: "somefile.jpg"
       - name: "mathjax"
         field:
           element: "checkbox"
