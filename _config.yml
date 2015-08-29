@@ -112,7 +112,7 @@ prose:
           value: personal
           options:
             - name: "C#"
-              value: csharp
+              value: C#
             - name: "Personal"
               value: personal
           alterable: true
