@@ -2,20 +2,98 @@
 layout: post
 published: false
 author: jackjwilliams
-title: Hangfire Woes
-date: "2015-08-27 22:00"
+title: Hangfire Windows Service
+date: "2016-02-25 23:30"
 comments: false
-category: "C#"
+category: "Octopus"
 tags:
-  - Hangfire
-  - SimpleInjector
-  - C#
-subtitle: "Database & Recurring Job Setup"
+  - Octopus
+  - ASP.NET 4.5
+  - MVC 5
+subtitle: "Pains of converting Hangfire to a Windows Service"
 modified: ""
 mathjax: false
 featured: false
 ---
 
+I'm trying to keep these posts more focused and to the point, here we go ...
+
+## Problem Statement
+
+The problem with simply stuffing your Hangfire service into a Windows Service (maybe using Topshelf) is that beforehand
+everything is run on the ASP.NET runtime. So some of the "Startup" stuff that comes with ASP.NET MVC doesn't necessarily happen
+as you would expect. This costed me HOURS of debugging. Lets get to it.
+
+### Problem #1: No IUserTokenProvider is registered.
+
+NOTE: This is only when you need to do things like send out user registration tokens or password reset tokens in the background.
+ 
+Out of the box, your UserManager.UserTokenProvider setup might look something like this:
+{% highlight c# %}
+var dataProtectionProvider = options.DataProtectionProvider;
+if (dataProtectionProvider != null)
+{
+    manager.UserTokenProvider = 
+        new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+}
+{% endhighlight %}
+
+Our setup was a little different, in a partial Startup class we get and set the DataProtectionProvider off of the IAppBuilder,
+then later check for it and set it similarly.
+
+{% highlight c# %}
+if (Startup.DataProtectionProvider != null)
+{
+    manager.UserTokenProvider = 
+        new DataProtectorTokenProvider<ApplicationUser>(Startup.DataProtectionProvider.Create("ASP.NET Identity"));
+}
+{% endhighlight %}
+
+But now that Hangfire is in it's own project and it's own Windows Service - this never happened (hence the error {% highlight xml %}No IUserTokenProvider is registered{%endhighlight%}). We have a lot of user creations / modifications
+that we offload to the background.
+
+The fix?
+
+Use your own.
+
+{% highlight c# %}
+var provider = new DpapiDataProtectionProvider("MyApplicationName");
+UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("UserToken"));
+{% endhighlight %}
+
+Reference: [Stackoverflow](http://stackoverflow.com/questions/22629936/no-iusertokenprovider-is-registered)
+
+### Problem 2: SignalR
+
+I like to provide the user with nice feedback and SignalR works great for giving users feedback and notifications for long running processes.
+
+When running Hangfire in process with your ASP.NET application and injecting hubs into services using your favorite IoC, everything plays 
+together nicely. When you move it to a Windows service - Hangfire doens't have the right context. This makes sense after thinking about it,
+but at 2 A.M. it didn't make much sense.
+
+The fix?
+
+[Scaleout in SignalR](http://www.asp.net/signalr/overview/performance/scaleout-in-signalr)
+
+I won't go into much detail as you will need to pick your scale out method, but I will tell you the basics of what I had to do to get going.
+
+I chose Scaleout with SQL Server. In both your ASP.NET MVC Startup code and your Hangfire Server process code you have to tell which server to use.
+
+Add this line in both projects:
+
+#### ASP.NET MVC
+{% highlight c# %}
+GlobalHost.DependencyResolver.UseSqlServer(sqlConnectionString);
+app.MapSignalrR();
+{% endhighlight %}
+
+#### Hangfire Service Project
+{% highlight c# %}
+GlobalHost.DependencyResolver.UseSqlServer(sqlConnectionString);
+{% endhighlight %}
+
+For now, I personally used the same database that my project is in simply because I don't need to scale that far out (yet). When ready I 
+can update my cloud infrastructure, add a database and modify this connection string. Pretty sweet!
 
 
 
