@@ -16,9 +16,6 @@ mathjax: false
 featured: false
 ---
 
-
-I'm trying to keep these posts more focused and to the point, here we go ...
-
 ## Problem Statement
 
 The problem with simply stuffing your Hangfire service into a Windows Service (maybe using Topshelf) is that beforehand
