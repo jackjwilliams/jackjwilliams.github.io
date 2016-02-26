@@ -35,7 +35,9 @@ var dataProtectionProvider = options.DataProtectionProvider;
 if (dataProtectionProvider != null)
 {
     manager.UserTokenProvider = 
-        new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+        new DataProtectorTokenProvider<ApplicationUser>(
+            dataProtectionProvider.Create("ASP.NET Identity")
+        );
 }
 {% endhighlight %}
 
@@ -46,7 +48,9 @@ then later check for it and set it similarly.
 if (Startup.DataProtectionProvider != null)
 {
     manager.UserTokenProvider = 
-        new DataProtectorTokenProvider<ApplicationUser>(Startup.DataProtectionProvider.Create("ASP.NET Identity"));
+        new DataProtectorTokenProvider<ApplicationUser>(
+            Startup.DataProtectionProvider.Create("ASP.NET Identity")
+        );
 }
 {% endhighlight %}
 
