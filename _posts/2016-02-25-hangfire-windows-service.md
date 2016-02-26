@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 author: jackjwilliams
 title: Hangfire Windows Service
 date: "2016-02-25 23:30"
