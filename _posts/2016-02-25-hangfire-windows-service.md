@@ -5,7 +5,7 @@ author: jackjwilliams
 title: Hangfire Windows Service
 date: "2016-02-25 23:30"
 comments: true
-category: "C#"
+category: "Hangfire"
 tags: 
   - Hangfire
   - ASP.NET 4.5
