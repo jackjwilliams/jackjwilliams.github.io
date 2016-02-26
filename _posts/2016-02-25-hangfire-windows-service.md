@@ -5,16 +5,17 @@ author: jackjwilliams
 title: Hangfire Windows Service
 date: "2016-02-25 23:30"
 comments: false
-category: "Octopus"
-tags:
+category: "C#"
+tags: 
   - Octopus
   - ASP.NET 4.5
   - MVC 5
-subtitle: "Pains of converting Hangfire to a Windows Service"
+subtitle: Pains of converting Hangfire to a Windows Service
 modified: ""
 mathjax: false
 featured: false
 ---
+
 
 I'm trying to keep these posts more focused and to the point, here we go ...
 
@@ -49,10 +50,10 @@ if (Startup.DataProtectionProvider != null)
 }
 {% endhighlight %}
 
-But now that Hangfire is in it's own project and it's own Windows Service - this never happened (hence the error {% highlight xml %}No IUserTokenProvider is registered{%endhighlight%}). We have a lot of user creations / modifications
+But now that Hangfire is in it's own project and it's own Windows Service - this never happened (hence the error **No IUserTokenProvider is registered**). We have a lot of user creations / modifications
 that we offload to the background.
 
-The fix?
+**The fix?**
 
 Use your own.
 
@@ -71,7 +72,7 @@ When running Hangfire in process with your ASP.NET application and injecting hub
 together nicely. When you move it to a Windows service - Hangfire doens't have the right context. This makes sense after thinking about it,
 but at 2 A.M. it didn't make much sense.
 
-The fix?
+**The fix?**
 
 [Scaleout in SignalR](http://www.asp.net/signalr/overview/performance/scaleout-in-signalr)
 
