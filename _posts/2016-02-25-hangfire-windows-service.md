@@ -5,7 +5,7 @@ author: jackjwilliams
 title: Hangfire Windows Service
 date: "2016-02-25 23:30"
 comments: true
-category: "ASP.NET 4.5"
+category: "C#"
 tags: 
   - Hangfire
   - ASP.NET 4.5
@@ -15,6 +15,7 @@ modified: ""
 mathjax: false
 featured: false
 ---
+
 
 ## Problem Statement
 
@@ -95,7 +96,7 @@ GlobalHost.DependencyResolver.UseSqlServer(sqlConnectionString);
 {% endhighlight %}
 
 For now I'm using the same database that my project is in simply because I don't need to scale that far out (yet). When ready I 
-can update my cloud infrastructure, add a  (I database and modify this connection string. Pretty sweet!
+can update my cloud infrastructure, add a database and modify this connection string. Pretty sweet!
 
 
 ### Problem #3: Custom Razor Templating
