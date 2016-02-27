@@ -5,7 +5,7 @@ author: jackjwilliams
 title: Hangfire Windows Service
 date: "2016-02-25 23:30"
 comments: true
-category: "Hangfire"
+category: "C#"
 tags: 
   - Hangfire
   - ASP.NET 4.5
@@ -17,11 +17,10 @@ featured: false
 ---
 
 
+
 ## Problem Statement
 
-The problem with simply stuffing your Hangfire service into a Windows Service (maybe using Topshelf) is that beforehand
-everything is run on the ASP.NET runtime. So some of the "Startup" stuff that comes with ASP.NET MVC doesn't necessarily happen
-as you would expect. This costed me HOURS of debugging. Lets get to it.
+The problem with simply stuffing your Hangfire service into a Windows Service (maybe using Topshelf) is it's no longer running in the same context as your ASP.NET application. So some of the "Startup" stuff that comes with ASP.NET / MVC doesn't  happen as you would expect. This cost me HOURS of debugging. Lets get to it.
 
 ### Problem #1: No IUserTokenProvider is registered.
 
