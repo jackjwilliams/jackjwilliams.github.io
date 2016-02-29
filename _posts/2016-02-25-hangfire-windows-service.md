@@ -131,7 +131,7 @@ Open Hangfire Server project, References > Add all missing references. This took
 
 ### Problem #5: Web.*.config all over the place
 
-I am currently using Octopus Deploy for deploying all these project. Another issue I found was that my Hangfire Project had to reference my web project due to all the *.cshtml razor views we use to generate emails. This brought over a lot of Web.Debug.config, ..., Web.config files - in addition to the HangfireServer.exe.config file. 
+I am currently using Octopus Deploy for deploying all these projects. Another issue I found was that my Hangfire Project had to reference my web project due to all the *.cshtml razor views we use to generate emails. This brought over a lot of Web.Debug.config, ..., Web.config files - in addition to the HangfireServer.exe.config file. 
 
 Hangfire was getting confused as to what to use - and anytime I referenced ConfigurationManager.AppSetting["MySetting"] it was null.
 
