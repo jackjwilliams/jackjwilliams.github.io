@@ -67,7 +67,9 @@ But after some testing and deploying to a real server other than my machine, I r
 
 [Stackoverflow](http://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/23661872#23661872)
 
-Make sure to add web.config <machineKey> elements as well. See http://www.a2zmenu.com/utility/machine-key-generator.aspx for generating some.
+Make sure to add web.config <machineKey> elements as well. This site was helpful:
+
+[Reference](http://www.a2zmenu.com/utility/machine-key-generator.aspx)
 
 ### Problem #2: SignalR
 
