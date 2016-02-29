@@ -65,7 +65,7 @@ Reference: [Stackoverflow](http://stackoverflow.com/questions/22629936/no-iusert
 
 But after some testing and deploying to a real server other than my machine, I realized this **DID NOT** work. I still continued to get Invalid link / code errors. The final solution was in this post:
 
-[Stackoverflow](http://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/23661872#23661872).
+[Stackoverflow](http://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/23661872#23661872)
 
 Make sure to add web.config <machineKey> elements as well. See [this](http://www.a2zmenu.com/utility/machine-key-generator.aspx) site for generating some.
 
