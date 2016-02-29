@@ -137,7 +137,7 @@ Hangfire was getting confused as to what to use - and anytime I referenced Confi
 
 **The fix?**
 
-Make sure to clean all additional Web.*.config files out. Since we use Octopus Deploy, this step template was handy:
+Make sure to clean all additional Web.*.config files out after deploy. Since we use Octopus Deploy, this step template was handy:
 
 [File System - Clean Configuration Transforms](https://library.octopusdeploy.com/#!/step-template/actiontemplate-file-system-clean-configuration-transforms)
 
