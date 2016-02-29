@@ -18,6 +18,7 @@ featured: false
 
 
 
+
 ## Problem Statement
 
 The problem with simply stuffing your Hangfire service into a Windows Service (maybe using Topshelf) is it's no longer running in the same context as your ASP.NET application. So some of the "Startup" stuff that comes with ASP.NET / MVC doesn't  happen as you would expect. This cost me HOURS of debugging. Lets get to it.
@@ -58,12 +59,15 @@ that we offload to the background.
 
 Use your own.
 
-{% highlight c# %}
-var provider = new DpapiDataProtectionProvider("MyApplicationName");
-UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("UserToken"));
-{% endhighlight %}
+Originally I recommended this method:
 
 Reference: [Stackoverflow](http://stackoverflow.com/questions/22629936/no-iusertokenprovider-is-registered)
+
+But after some testing and deploying to a real server other than my machine, I realized this **DID NOT** work. I still continued to get Invalid link / code errors. The final solution was in this post:
+
+[Stackoverflow](http://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/23661872#23661872).
+
+Make sure to add web.config <machineKey> elements as well. See [this](http://www.a2zmenu.com/utility/machine-key-generator.aspx) site for generating some.
 
 ### Problem #2: SignalR
 
@@ -122,5 +126,19 @@ to a Windows Service, all the dependencies were in with the ASP.NET project so i
 **The fix?**
 
 Open Hangfire Server project, References > Add all missing references. This took awhile.
+
+### Problem #5: Web.*.config all over the place
+
+I am currently using Octopus Deploy for deploying all these project. Another issue I found was that my Hangfire Project had to reference my web project due to all the *.cshtml razor views we use to generate emails. This brought over a lot of Web.Debug.config, ..., Web.config files - in addition to the HangfireServer.exe.config file. 
+
+Hangfire was getting confused as to what to use - and anytime I referenced ConfigurationManager.AppSetting["MySetting"] it was null.
+
+**The fix?**
+
+Make sure to clean all additional Web.*.config files out. Since we use Octopus Deploy, this step template was handy:
+
+[File System - Clean Configuration Transforms](https://library.octopusdeploy.com/#!/step-template/actiontemplate-file-system-clean-configuration-transforms)
+
+
 
 I hope this helps somebody because I was about ready to pull my hair out!
