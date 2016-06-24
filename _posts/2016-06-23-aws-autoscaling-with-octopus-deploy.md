@@ -52,6 +52,13 @@ I mention patience twice because testing your scripts takes killing one instance
 2. Log files are your friend, you can find them on the new instance in C:\cfn\log.
 3. Turn OFF auto-rollback when your cloud fails to start (otherwise you can't look at the logs).
 
+#### Why Multple Environments and Multiple Roles
+More explanation as to why my instances belong to multiple environents and have multiple roles. This project doesn't have a ton of users yet, so spinning up a seperate instance for staging, demo and production, along with seperate database instances for each was too costly. But the infrastructure is in place to do it.
 
+The current configuration is something like this: We have two "environments" that get spun up with a CloudFormation script. There is a parameter that says whether or not the environment is "aux" (which means it hosts demo, staging a training), or "prod" which means it's the production environment. 
+
+This works great for now, but can be changed fairly easy when its time to seriously scale. The main thing is that it's all done in a CloudFormation template, so adding servers is easy. In addition to that, all of the services are modular (there are a few: the Web Server, Image Server, and Hangfire Server). It doesn't matter if they're deployed to IIS on one instance, or three instances - it all works the same.
+
+Sorry for the long intro, lets get down to business.
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
