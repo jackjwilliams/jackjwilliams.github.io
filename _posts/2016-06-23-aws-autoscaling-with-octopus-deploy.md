@@ -63,8 +63,8 @@ Sorry for the long intro, lets get down to business.
 
 ### The Scripts
 
-Let me first give a shout out to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is, but I've modified it to do what I need.
+Let me first give a shout out to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is on the interwebs, but I must give credit where credit is due.
 
-RegisterTentacle.ps1
+##### RegisterTentacle.ps1
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
