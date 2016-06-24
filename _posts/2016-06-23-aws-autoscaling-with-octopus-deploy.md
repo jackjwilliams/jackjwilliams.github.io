@@ -1,8 +1,7 @@
 ---
 layout: post
 published: true
-author: author
-subtitle: Subtitle
+author: Jack Williams
 mathjax: false
 featured: false
 comments: false
