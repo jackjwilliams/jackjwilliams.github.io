@@ -40,15 +40,15 @@ On the project I'm currently working on I had to figure out how to setup autosca
 - An understanding of Autoscaling groups and LaunchConfigurations in AWS
 - An understanding of CloudFormation in AWS
 - Patience
-- Patience
+- More Patience
 
-I mention patience twice because testing your scripts takes killing one instance and spinning up a new one a few times. This isn't always the case, but once you get them running it takes a few to make sure everything is on the up and up.
+I mention patience twice because testing your scripts takes killing one instance and spinning up a new one a few times. This isn't always the case, but once you get them running it takes a few scaling operations to make sure everything is on the up and up.
 
 ### Tips
 1. To avoid the stop and restart instance cycle
-	a. Get everything setup like you want, then do an initial scaling operation.
-    b. If it doesn't work, RDP into your instance and GET them working manually.
-    c. If it does work, REJOICE.
+	- Get everything setup like you want, then do an initial scaling operation.
+    - If it doesn't work, RDP into your instance and GET them working manually.
+    - If it does work, REJOICE.
 2. Log files are your friend, you can find them on the new instance in C:\cfn\log.
 3. Turn OFF auto-rollback when your cloud fails to start (otherwise you can't look at the logs).
 
