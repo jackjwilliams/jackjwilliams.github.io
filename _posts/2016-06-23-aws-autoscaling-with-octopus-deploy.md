@@ -20,8 +20,8 @@ On the project I'm currently working on I had to figure out how to setup autosca
 ### Process Outline
 
 1. Create scripts to
-	i. Delete old, stale tentacles
-    ii. push the latest Octopus Deployment to the new tentacle
+	1. Delete old, stale tentacles
+    2. push the latest Octopus Deployment to the new tentacle
 2. Create an AWS Launch Configuration which
 	1. Spins up a new instance
     2. Pulls in all needed scripts (from above) and executables
