@@ -121,7 +121,9 @@ $TentacleThumbprint = & $tentacleExe "show-thumbprint" "--nologo" | Out-String
 $TentacleThumbprint = $TentacleThumbprint -match "\:(.*)" ; $matches[1].Trim()
 
 # Octo.exe deploy-release prep. This is used to push the latest release to our new tentacle.
-$octoExe = "c:\setup\octopus\octo\octo.exe" # Path to the executable
+
+# Path to the executable
+$octoExe = "c:\setup\octopus\octo\octo.exe" 
 $octoArg1 = "deploy-release" # What we are doing
 $octoArg2 = "--version=latest" # The version we want (actually gets changed later)
 $octoArg3 = "--deploy-to" # Deploying to ... which environment?
@@ -150,14 +152,20 @@ $machine.name = $TentacleName
 
 # Make the new Listening Tentacle Endpoint
 $machineEndpoint = New-Object Octopus.Client.Model.Endpoints.ListeningTentacleEndpointResource
-$machine.EndPoint = $machineEndPoint # Set endpoint
-$machine.EndPoint.Uri = $TentacleURL # Set the machines tentacle URL
-$machine.EndPoint.Thumbprint = $TentacleThumbprint # Set the thumbprint
+
+# Set endpoint
+$machine.EndPoint = $machineEndPoint
+
+# Set the machines tentacle URL
+$machine.EndPoint.Uri = $TentacleURL
+
+# Set the thumbprint
+$machine.EndPoint.Thumbprint = $TentacleThumbprint 
 
 # Finally, create the new resource! Now it's in our Octopus Deploy Server
 New-OctopusResource -Resource $machine
 
-#Deploy to each environment passed in
+# Deploy to each environment passed in
 for ($i=0; $i -lt $env.length;$i++){
     # Get environment name
 	$octoArg4 = $env[$i]
@@ -174,6 +182,7 @@ for ($i=0; $i -lt $env.length;$i++){
     # Finally, deploy to our machine
 	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5
 }
+
 
 {% endhighlight %}
 
