@@ -6,7 +6,6 @@ mathjax: false
 featured: false
 comments: false
 title: AWS AutoScaling with Octopus Deploy
-subtitle: Subtitle
 ---
 ## Fear Not, It Can Be Done
 
