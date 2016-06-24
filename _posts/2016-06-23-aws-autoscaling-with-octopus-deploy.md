@@ -20,20 +20,14 @@ On the project I'm currently working on I had to figure out how to setup autosca
 ### Process Outline
 
 1. Create scripts to
-
-a. Delete old, stale tentacles
-b. Push the latest 
-
-1. Create scripts to
-a. Delete old, stale tentacles
-b. Push the latest Octopus Deployment to the new tentacle
-
+	1. Delete old, stale tentacles
+    2. push the latest Octopus Deployment to the new tentacle
 2. Create an AWS Launch Configuration which
-	a. Spins up a new instance
-    b. Pulls in all needed scripts and executables
-	c. Assigns the new tentacle to multiple environments (more on this later)
-    d. Assigns the new tentacle to multiple roles (more on this later)
-
+	1. Spins up a new instance
+    2. Pulls in all needed scripts (from above) and executables
+    3. Assigns the new tentacles to multiple environments (more on this later)
+    4. Assigns the new tentacle to multiple roles (more on this later)
+    
 ### What this post is NOT about.
 
 1. Setting up Autoscaling in AWS
