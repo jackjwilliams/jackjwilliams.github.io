@@ -186,7 +186,27 @@ for ($i=0; $i -lt $env.length;$i++){
 {% endhighlight %}
 
 
+##### PrepareEC2Instance.ps1
 
+{% highlight powershell %}
+
+# Setup Octoposh for pulling latest octopus deployment
+# By copying it to the WindowsPowerShell modules folder
+
+$destDir = "C:\Program Files\WindowsPowerShell\Modules\Octoposh\"
+
+# Create directory if it doesn't exist
+if (!(Test-Path -path $destDir)) { New-Item $destDir -itemtype directory -force }
+
+# Copy octoposh to powershell modules folder
+copy-item C:\setup\OctoPosh-0.3.5\* $destDir -force -Recurse -Verbose
+
+# IIS Prep
+add-windowsfeature web-webserver -includeallsubfeature
+
+add-windowsfeature web-mgmt-tools -includeallsubfeature
+
+{% endhighlight %}
 
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
