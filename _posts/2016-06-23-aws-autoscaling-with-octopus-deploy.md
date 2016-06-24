@@ -37,10 +37,10 @@ On the project I'm currently working on I had to figure out how to setup autosca
 
 ### Requirements
 
-1. An understanding of Autoscaling groups and LaunchConfigurations in AWS
-2. An understanding of CloudFormation in AWS
-3. Patience
-4. Patience
+- An understanding of Autoscaling groups and LaunchConfigurations in AWS
+- An understanding of CloudFormation in AWS
+- Patience
+- Patience
 
 I mention patience twice because testing your scripts takes killing one instance and spinning up a new one a few times. This isn't always the case, but once you get them running it takes a few to make sure everything is on the up and up.
 
