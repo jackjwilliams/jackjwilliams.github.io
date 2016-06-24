@@ -21,12 +21,14 @@ On the project I'm currently working on I had to figure out how to setup autosca
 
 1. Create scripts to
 	- Delete old, stale tentacles
+    - Create a new tentacle
+    - Assign the tentacle the appropriate roles
+    - Assign the tentacle the appropriate environments
     - Push the latest Octopus Deployment to the new tentacle
 2. Create an AWS Launch Configuration which
 	- Spins up a new instance
     - Pulls in all needed scripts (from above) and executables
-    - Assigns the new tentacles to multiple environments (more on this later)
-    - Assigns the new tentacle to multiple roles (more on this later)
+    - Execute the scripts
     
 ### What this post is NOT about.
 
