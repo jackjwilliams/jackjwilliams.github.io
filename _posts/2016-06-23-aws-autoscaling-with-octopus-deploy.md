@@ -67,4 +67,112 @@ Let me first give a shout out to Dalmiro Grañas (he's on the support staff at O
 
 ##### RegisterTentacle.ps1
 
+param (
+	[Parameter(Mandatory=$True)]
+	[string[]] $env, # Can be a list
+	
+	#PROD or AUX
+	[Parameter(Mandatory=$True)]
+	[string] $tentaclePrefix, # So we can have tentacles named PROD-123.23.23.33 or AUX-123.23.23.33
+	
+	[Parameter(Mandatory=$True)]
+	[string] $tentaclePort = "10933",
+	
+	[string[]] $roles = @("Webserver"), # Can be a list
+	
+	[string] $apiKey = "" # Otopus API Key
+	
+)
+
+# Config - This is used to automatically register the tentacle with the octopus server
+
+# API Key to authenticate in Octopus
+$OctopusAPIkey = $apiKey
+
+# Octopus server url
+$OctopusURL = "http://my.octopusserver.com" 
+
+# Tentacle URL. Handy way to get the IP using AWS metadata
+$TentacleIP = (Invoke-WebRequest http://169.254.169.254/latest/meta-data/public-ipv4).Content 
+
+# So we can have tentacles named PROD-123.23.23.33 or AUX-123.23.23.33
+$TentacleName = "$tentaclePrefix-$TentacleIP"
+
+# Port the Listening Tentacle will use to comunicate with the Octopus server
+$TentaclePort = $tentaclePort
+
+# Tentacle URL
+$TentacleURL = "https://${TentacleIP}:${TentaclePort}/"
+
+# Tentacle Thumbprint (we'll get it later with black magic)
+$TentacleThumbprint = ""
+
+# What roles will this tentacle have?
+$TentacleRoles = $roles 
+
+# What environments will this tentacle be registered to?
+$EnvironmentIDs = $env
+
+$tentacleExe = 'C:\Program Files\Octopus Deploy\Tentacle\Tentacle.exe'
+
+# Get the Tentacles Thumbprint with black magic (I'm no Powershell or regex expert, but this works)
+$TentacleThumbprint = & $tentacleExe "show-thumbprint" "--nologo" | Out-String
+$TentacleThumbprint = $TentacleThumbprint -match "\:(.*)" ; $matches[1].Trim()
+
+# Octo.exe deploy-release prep. This is used to push the latest release to our new tentacle.
+$octoExe = "c:\setup\octopus\octo\octo.exe" # Path to the executable
+$octoArg1 = "deploy-release" # What we are doing
+$octoArg2 = "--version=latest" # The version we want (actually gets changed later)
+$octoArg3 = "--deploy-to" # Deploying to ... which environment?
+$octoArg4 = "" # Reserved for the environment
+$octoArg5 = "--specificmachines=${TentacleName}" # Only deploy to this tentacle
+
+# Octoposh import
+Import-Module Octoposh
+
+# Use Octoposh to start the new machine creation
+$machine = Get-OctopusResourceModel -Resource Machine
+
+# Add all environments to the machine
+for ($cnt=0; $cnt -lt $env.length; $cnt++) {
+	$environment = Get-OctopusEnvironment -EnvironmentName $env[$cnt]
+	$machine.EnvironmentIds.Add($environment.id)
+}
+
+# Add all roles to the machine
+for ($roleCount=0; $roleCount -lt $roles.length; $roleCount++) {
+	$machine.Roles.Add($roles[$roleCount])
+}
+
+# Assign the machine name
+$machine.name = $TentacleName
+
+# Make the new Listening Tentacle Endpoint
+$machineEndpoint = New-Object Octopus.Client.Model.Endpoints.ListeningTentacleEndpointResource
+$machine.EndPoint = $machineEndPoint # Set endpoint
+$machine.EndPoint.Uri = $TentacleURL # Set the machines tentacle URL
+$machine.EndPoint.Thumbprint = $TentacleThumbprint # Set the thumbprint
+
+# Finally, create the new resource! Now it's in our Octopus Deploy Server
+New-OctopusResource -Resource $machine
+
+#Deploy to each environment passed in
+for ($i=0; $i -lt $env.length;$i++){
+    # Get environment name
+	$octoArg4 = $env[$i]
+
+    # We have to pull the environment info from the octopus server, to get the latest release version
+    $octoEnv = Get-OctopusEnvironment $octoArg4
+
+    # Get the latest version number from the environment
+    $latestVersion = $octoEnv.LatestDeployment.ReleaseVersion
+
+    # Set the version argument for octo.exe
+    $octoArg2 = "--version=$latestVersion"
+
+    # Finally, deploy to our machine
+	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5
+}
+
+
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
