@@ -68,7 +68,7 @@ Let me first give a shout out to Dalmiro Grañas (he's on the support staff at O
 
 ##### RegisterTentacle.ps1
 
-```
+```posh
 param (
 	[Parameter(Mandatory=$True)]
 	[string[]] $env, # Can be a list
