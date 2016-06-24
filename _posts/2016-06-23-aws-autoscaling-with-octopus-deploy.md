@@ -19,6 +19,10 @@ On the project I'm currently working on I had to figure out how to setup autosca
 
 ### Process Outline
 
+1.Create scripts to
+a. Delete old, stale tentacles
+b. Push the latest 
+
 1. Create scripts to
 a. Delete old, stale tentacles
 b. Push the latest Octopus Deployment to the new tentacle
