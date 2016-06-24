@@ -68,7 +68,7 @@ Let me first give a shout out to Dalmiro Grañas (he's on the support staff at O
 
 ##### RegisterTentacle.ps1
 
-{% highlight powershell %}
+``` powershell
 param (
 	[Parameter(Mandatory=$True)]
 	[string[]] $env, # Can be a list
@@ -176,7 +176,7 @@ for ($i=0; $i -lt $env.length;$i++){
 	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5
 }
 
-{% endhighlight %}
+```
 
 
 
