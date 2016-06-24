@@ -188,6 +188,8 @@ for ($i=0; $i -lt $env.length;$i++){
 
 ##### PrepareEC2Instance.ps1
 
+This script just sets up Octoposh for use in the RegisterTentacle.ps1 script
+
 {% highlight powershell %}
 
 # Setup Octoposh for pulling latest octopus deployment
