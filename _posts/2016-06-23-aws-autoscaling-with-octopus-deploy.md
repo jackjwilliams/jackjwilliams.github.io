@@ -30,8 +30,8 @@ On the project I'm currently working on I had to figure out how to setup autosca
     
 ### What this post is NOT about.
 
--Setting up Autoscaling in AWS
--Setting up a Cloud Formation template
+- Setting up Autoscaling in AWS
+- Setting up a Cloud Formation template
 
 ### Requirements
 
