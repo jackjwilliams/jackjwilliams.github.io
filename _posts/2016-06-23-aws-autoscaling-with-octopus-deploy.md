@@ -245,6 +245,7 @@ The first part of the Cloud Formation setup consists of importing all needed fil
 
 Here is the default config section, which includes the commands, packages, files and sources to download / run.
 
+
 ```json
 "default":{  
       "commands":{  
