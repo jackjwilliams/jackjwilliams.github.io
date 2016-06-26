@@ -208,8 +208,7 @@ for ($i=0; $i -lt $env.length;$i++){
     # Deploy!
 	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5 $octoArg6 $octoArg7 $octoArg8
 }
-
-{% endhighlight %}
+```
 
 
 ##### PrepareEC2Instance.ps1
@@ -233,7 +232,6 @@ copy-item C:\setup\OctoPosh-0.3.5\* $destDir -force -Recurse -Verbose
 add-windowsfeature web-webserver -includeallsubfeature
 
 add-windowsfeature web-mgmt-tools -includeallsubfeature
-```
-
+{% endhighlight %}
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
