@@ -239,3 +239,104 @@ add-windowsfeature web-webserver -includeallsubfeature
 add-windowsfeature web-mgmt-tools -includeallsubfeature
 ```
 
+##### Cloud Formation Setup
+
+The first part of the Cloud Formation setup consists of importing all needed files and executables. I have a few different configs setup in the LaunchConfig's AWS::CloudFormation::Init element: aux, prod, default. Default gets run in all AWS environments, prod gets run in prod, and aux gets run for [staging, demo, training].
+
+Here is the default config section, which includes the commands, packages, files and sources to download / run.
+
+```json
+"default"    : {
+                        "commands" : {
+							"1-prepare-ec2-instance" : {
+                                "command" : "@powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\setup\\prepare-ec2-instance.ps1\"",
+                                "waitAfterCompletion" : "0"
+                            }
+                        },
+                        "packages" : {
+                            "msi" : {
+                                "octopus" : "https://octopus.com/downloads/latest/OctopusTentacle64"
+                            }
+                        },
+                        "files"    : {
+                            "C:\\setup\\octopus\\tentacles\\RegisterTentacle.ps1" : {
+                                "source" : {
+                                    "Fn::Join" : [
+                                        "/",
+                                        [
+                                            "http://s3-us-west-1.amazonaws.com",
+                                            {
+                                                "Ref" : "BucketName"
+                                            },
+                                            "RegisterTentacle.ps1"
+                                        ]
+                                    ]
+                                }
+                            },
+							"C:\\setup\\prepare-ec2-instance.ps1" : {
+                                "source" : {
+                                    "Fn::Join" : [
+                                        "/",
+                                        [
+                                            "http://s3-us-west-1.amazonaws.com",
+                                            {
+                                                "Ref" : "BucketName"
+                                            },
+                                            "prepare-ec2-instance.ps1"
+                                        ]
+                                    ]
+                                }
+                            },
+                            "c:\\cfn\\cfn-hup.conf"            : {
+                                "content" : {
+                                    "Fn::Join" : [
+                                        "",
+                                        [
+                                            "[main]\n",
+                                            "stack=",
+                                            {
+                                                "Ref" : "AWS::StackName"
+                                            },
+                                            "\n",
+                                            "region=",
+                                            {
+                                                "Ref" : "AWS::Region"
+                                            },
+                                            "\n"
+                                        ]
+                                    ]
+                                }
+                            },
+                            "c:\\cfn\\hooks.d\\cfn-auto-reloader.conf" : {
+                                "content" : {
+                                    "Fn::Join" : [
+                                        "",
+                                        [
+                                            "[cfn-auto-reloader-hook]\n",
+                                            "triggers=post.update\n",
+                                            "path=Resources.WebServerInstance.Metadata.AWS::CloudFormation::Init\n",
+                                            "action=cfn-init.exe -v -s ",
+                                            {
+                                                "Ref" : "AWS::StackName"
+                                            },
+                                            " -r LaunchConfig",
+                                            " --region ",
+                                            {
+                                                "Ref" : "AWS::Region"
+                                            },
+                                            "\n"
+                                        ]
+                                    ]
+                                }
+                            }
+                        },
+                        "sources"  : {
+                            "C:\\setup\\octopus\\octo"     : "https://download.octopusdeploy.com/octopus-tools/3.3.6/OctopusTools.3.3.6.zip",
+							"C:\\setup"     : "https://github.com/Dalmirog/OctoPosh/archive/0.3.5.zip"
+                        }
+                    }
+```
+
+
+
+
