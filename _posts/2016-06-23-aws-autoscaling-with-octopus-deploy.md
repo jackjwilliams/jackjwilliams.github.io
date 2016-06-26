@@ -15,9 +15,9 @@ subtitle: Subtitle
 ---
 ## Fear Not, It Can Be Done
 
-Let me first give accolades to Jeffery Palermo. He did a bootcamp on Continuous Delivery at the Kansas City Developer Conferencce that I attended - it really made me re-think our CD process. It was his kindness and helpfulness to other developers and I that reminded me I need to give back as well. I've been a long time reader of his blogs and books, and overall fan. It was really cool to meet him in person and see how much of a helping spirit he has.
+Let me first give accolades to Jeffery Palermo. He did a bootcamp on Continuous Delivery at the Kansas City Developer Conferencce that I attended - it really made me re-think our CD process. It was his kindness and helpfulness to other developers that reminded me I need to give back as well. I've been a long time reader of his blogs and books, and overall fan. It was really cool to meet him in person and see how much of a helping spirit he has.
 
-I've been meaning to blog about this but just haven't found the time. Now is as good a time as any, I just got done with day one of the KCDC.
+I've been meaning to blog about this but just haven't found the time. Now is as good a time as any!
 
 ### Background
 
@@ -70,7 +70,7 @@ Sorry for the long intro, lets get down to business.
 
 ### The Scripts
 
-Let me first give a shout out to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is on the interwebs, but I must give credit where credit is due.
+Let me first give a shout out to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is on the interwebs, but I must give credit where credit is due. I've modified it to suit my needs.
 
 ##### RegisterTentacle.ps1
 
