@@ -3,8 +3,8 @@ layout: post
 published: true
 author: Jack Williams
 mathjax: false
-featured: false
-comments: false
+featured: true
+comments: true
 title: AWS AutoScaling with Octopus Deploy
 category: AWS
 tags:
