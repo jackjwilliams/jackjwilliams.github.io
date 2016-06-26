@@ -240,7 +240,7 @@ add-windowsfeature web-mgmt-tools -includeallsubfeature
 ```
 
 Notes
-- The only time old tentacles are cleared is on a scaling operation, there is probably a better way to handle this - please let me know!
+- The only time old tentacles are cleared is on a scaling operation, there is probably a better way to handle this - please let me know! 
 
 ##### Cloud Formation Setup
 
