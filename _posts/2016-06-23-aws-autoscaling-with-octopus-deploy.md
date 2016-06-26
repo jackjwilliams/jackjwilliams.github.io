@@ -385,7 +385,7 @@ Notes
             "waitAfterCompletion":"15"
          },
          "8-register-tentacle-with-server":{  
-            "command":"powershell.exe Set-ExecutionPolicy Unrestricted & powershell.exe C:\\setup\\octopus\\tentacle\\RegisterTentacle.ps1 -env AWSStaging,AWSTraining,AWSDemoWeb -tentaclePrefix AUX -roles Webserver,ImageServer,HangfireServer -tentaclePort 10933",
+            "command":"powershell.exe Set-ExecutionPolicy Unrestricted & powershell.exe C:\\setup\\octopus\\tentacle\\RegisterTentacle.ps1 -env Staging,Training,Demo -tentaclePrefix AUX -roles Webserver,ImageServer,HangfireServer -tentaclePort 10933",
             "waitAfterCompletion":"0"
          }
       }
