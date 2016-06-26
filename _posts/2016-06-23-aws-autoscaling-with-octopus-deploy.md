@@ -468,5 +468,5 @@ Example
 
 Also at the KCDC I heard Damian Brady talk about treating servers as cattle instead of pets, which is a bit refreshing. I remember the days of babying servers, upgrading, fixing and bringing back to life.
 
-But he encourages you to go out, have a beer, and shoot your servers down and watch them pop back up! Once you get this script setup, you can do that with confidence, as it should just spin up a new one! Disclaimer: Make sure you have minimum instances set to at least 2 before you do this.
+He encourages you to go out, have a beer and shoot your servers down and watch them pop back up! Once you get this script setup, you can do that with confidence, as it should just spin up a new one! Disclaimer: Make sure you have minimum instances set to at least 2 before you do this.
 
