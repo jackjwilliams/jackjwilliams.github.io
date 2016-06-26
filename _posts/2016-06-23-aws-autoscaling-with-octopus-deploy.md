@@ -215,6 +215,8 @@ for ($i=0; $i -lt $env.length;$i++){
 }
 ```
 
+Notes
+- The only time old tentacles are cleared is on a scaling operation, there is probably a better way to handle this - please let me know! 
 
 ##### PrepareEC2Instance.ps1
 
@@ -238,9 +240,6 @@ add-windowsfeature web-webserver -includeallsubfeature
 
 add-windowsfeature web-mgmt-tools -includeallsubfeature
 ```
-
-Notes
-- The only time old tentacles are cleared is on a scaling operation, there is probably a better way to handle this - please let me know! 
 
 ##### Cloud Formation Setup
 
