@@ -400,7 +400,7 @@ Notes
 
 ##### configSets
 
-Here is what the config sets look like
+Here is what the config sets look like. A set points to multiple configs to execute, each start with default then run the environment specific config set.
 
 ```json
 "configSets":{  
