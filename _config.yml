@@ -1,5 +1,7 @@
 title:            Jacked
 description:      "Program All The Things"
+logo:             logo.png
+logo_inverse:     logo_inverse.png
 disqus_shortname: jacked
 share:            true
 dropcap:	   true
