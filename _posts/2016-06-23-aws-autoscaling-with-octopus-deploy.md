@@ -12,6 +12,8 @@ tags:
   - Octopus
   - Autoscale
 ---
+
+![AWSOCTOPUS]({{ site.url }}/assets/aws-octopus.png)
 ## Fear Not, It Can Be Done
 
 Let me first give accolades to Jeffery Palermo. He did a bootcamp on Continuous Delivery at the Kansas City Developer Conferencce that I attended - it really made me re-think the CD process on some projects. It was his kindness and helpfulness to other developers that reminded me I need to give back as well. I've been a long time reader of his blogs and books, and overall fan. It was really cool to meet him in person and see how much of a helping spirit he has.
