@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 author: Jack Williams
 mathjax: false
 featured: false
