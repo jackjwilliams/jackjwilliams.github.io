@@ -74,7 +74,7 @@ Let me first give a shout out to Dalmiro Grañas (he's on the support staff at O
 
 ##### RegisterTentacle.ps1
 
-Creates a new tentacle with our octopus server and pushes the latest release to it. Also clears out old tentacles that are dead.
+Creates a new tentacle with our octopus server and pushes the latest release to it. Also clears out old tentacles that are dead. I've commented the file for guidance.
 
 ```powershell
 param (
