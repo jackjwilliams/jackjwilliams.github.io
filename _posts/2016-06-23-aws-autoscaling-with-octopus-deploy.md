@@ -259,7 +259,7 @@ Here is the default config section, which includes the commands, packages, files
          }
       },
       "files":{  
-         "C:\\setup\\octopus\\tentacles\\RegisterTentacle.ps1":{  
+         "C:\\setup\\octopus\\tentacle\\RegisterTentacle.ps1":{  
             "source":{  
                "Fn::Join":[  
                   "/",
