@@ -14,7 +14,7 @@ tags:
 ---
 ## Fear Not, It Can Be Done
 
-Let me first give accolades to Jeffery Palermo. He did a bootcamp on Continuous Delivery at the Kansas City Developer Conferencce that I attended - it really made me re-think our CD process. It was his kindness and helpfulness to other developers that reminded me I need to give back as well. I've been a long time reader of his blogs and books, and overall fan. It was really cool to meet him in person and see how much of a helping spirit he has.
+Let me first give accolades to Jeffery Palermo. He did a bootcamp on Continuous Delivery at the Kansas City Developer Conferencce that I attended - it really made me re-think the CD process on some projects. It was his kindness and helpfulness to other developers that reminded me I need to give back as well. I've been a long time reader of his blogs and books, and overall fan. It was really cool to meet him in person and see how much of a helping spirit he has.
 
 I've been meaning to blog about this but just haven't found the time. Now is as good a time as any!
 
@@ -61,7 +61,7 @@ I mention patience twice because testing your scripts takes killing one instance
 
 More explanation as to why my instances belong to multiple environents and have multiple roles. This project doesn't have a ton of users yet, so spinning up a seperate instance for staging, demo and production, along with seperate database instances for each was too costly. **But the infrastructure is in place to do it**.
 
-The current configuration is something like this: Two "environments" can get spun up with a CloudFormation script. There is a Cloud Formation parameter that says whether or not the environment is "aux" (which means it hosts demo, staging and training), or "prod" which means it's the production environment. 
+The current configuration is something like this: Two AWS "environments" can get spun up with a CloudFormation script. There is a Cloud Formation parameter that says whether or not the environment is "aux" (which means it hosts demo, staging and training), or "prod" which means it's the production environment. 
 
 This works great for now and can be changed fairly easy when it's time to seriously scale. The main thing is that it's all done in a CloudFormation template, so adding servers is easy. In addition to that, all of the services are modular (there are a few: the Web Server, Image Server, and Hangfire Server). It doesn't matter if they're deployed to IIS on one instance, or three instances - it all works the same.
 
