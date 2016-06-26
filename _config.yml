@@ -1,4 +1,4 @@
-title:            Jacked
+title:            Jack Williams
 description:      "Program All The Things"
 logo:             logo.png
 logo_inverse:     logo_inverse.png
@@ -16,7 +16,7 @@ owner:
   avatar:         me.jpg
   email:          williams.jackj@gmail.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Remembering everything I've learned is becoming difficult. Time to start recording it.
+  description:    Learn as much by writing as by reading - Lord Acton
   # Social networking links used in footer. Update and remove as you like.
   twitter:        jackkedd
   facebook:       
