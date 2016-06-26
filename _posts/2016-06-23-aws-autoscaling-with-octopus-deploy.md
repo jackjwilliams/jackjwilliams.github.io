@@ -350,3 +350,114 @@ Notes
 
 ##### aux config
 
+```json
+"aux":{  
+      "commands":{  
+         "1-create-instance":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" create-instance --instance \"Tentacle\" --config \"C:\\Octopus\\Tentacle.config\" --console",
+            "waitAfterCompletion":"0"
+         },
+         "2-new-cert":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" new-certificate --instance \"Tentacle\" --if-blank --console ",
+            "waitAfterCompletion":"0"
+         },
+         "3-config-reset-trust":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" configure --instance \"Tentacle\" --reset-trust --console",
+            "waitAfterCompletion":"0"
+         },
+         "4-config-set-directories":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" configure --instance \"Tentacle\" --home \"C:\\Octopus\" --app \"C:\\Octopus\\Applications\" --port \"10933\" --noListen \"False\" --console ",
+            "waitAfterCompletion":"0"
+         },
+         "5-config-set-trust":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" configure --instance \"Tentacle\" --trust \"OCTOPUS_SERVER_THUMBPRINT\" --console ",
+            "waitAfterCompletion":"0"
+         },
+         "6-add-firewall-rule":{  
+            "command":"netsh advfirewall firewall add rule \"name=Octopus Deploy Tentacle\" dir=in action=allow protocol=TCP localport=10933",
+            "waitAfterCompletion":"0"
+         },
+         "7-start-tentacle":{  
+            "command":"\"C:\\Program Files\\Octopus Deploy\\Tentacle\\Tentacle.exe\" service --instance \"Tentacle\" --install --start --console ",
+            "waitAfterCompletion":"15"
+         },
+         "8-register-tentacle-with-server":{  
+            "command":"powershell.exe Set-ExecutionPolicy Unrestricted & powershell.exe C:\\setup\\octopus\\tentacle\\RegisterTentacle.ps1 -env AWSStaging,AWSTraining,AWSDemoWeb -tentaclePrefix AUX -roles Webserver,ImageServer,HangfireServer -tentaclePort 10933",
+            "waitAfterCompletion":"0"
+         }
+      }
+   }
+```
+
+Notes
+
+- Most of the steps are just tentacle initialization
+- Except for 6, it adds a firewall rule for tentacle / server communication
+- And step 8 calls our RegisterTentacle.ps1 script
+
+##### configSets
+
+Here is what the config sets look like
+
+```json
+"configSets":{  
+      "prod-set":[  
+         "default",
+         "prod"
+      ],
+      "aux-set":[  
+         "default",
+         "aux"
+      ]
+   }
+```
+
+Now in the UserData script, when you call cfn-init.exe, you specify the configSet to use, which mine is based off of a parameter in the Cloud Formation script - but YMMV on how you decide to handle this.
+
+Example
+
+```json
+"UserData":{  
+      "Fn::Base64":{  
+         "Fn::Join":[  
+            "",
+            [  
+               "<script>\n",
+               "cfn-init.exe -v -s ",
+               {  
+                  "Ref":"AWS::StackName"
+               },
+               " -r LaunchConfig",
+               " --region ",
+               {  
+                  "Ref":"AWS::Region"
+               },
+               " -c ",
+               {  
+                  "Fn::Join":[  
+                     "-",
+                     [  
+                        {  
+                           "Ref":"EnvName"
+                        },
+                        "set"
+                     ]
+                  ]
+               },
+               "\n",
+               "cfn-signal.exe --stack ",
+               {  
+                  "Ref":"AWS::StackName"
+               },
+               " --region ",
+               {  
+                  "Ref":"AWS::Region"
+               },
+               " --resource LaunchConfig",
+               "\n"
+               
+            ]
+         ]
+      }
+   }
+```
