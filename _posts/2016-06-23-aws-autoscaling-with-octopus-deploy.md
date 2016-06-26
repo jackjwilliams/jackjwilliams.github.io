@@ -21,7 +21,7 @@ I've been meaning to blog about this but just haven't found the time. Now is as 
 
 ### Background
 
-On the project I'm currently working on I had to figure out how to setup autoscaling with Octopus Deploy - and it was no simple feat. There wasn't a ton of information on this topic. This post details the process I came up with to handle this.
+On the project I'm currently working on I had to figure out how to setup autoscaling with Octopus Deploy - and it was no simple feat. Especially since this is Gov cloud. AWS Gov Cloud does not have the full feature set of AWS (such as various helpful DevOps features). There wasn't a ton of information on this topic, so this post details the process I came up with to handle this. If you know of a better way, please let me know!
 
 ### Process Outline
 
@@ -70,7 +70,7 @@ Sorry for the long intro, lets get down to business.
 
 ### The Scripts
 
-Let me first give a shout out to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is on the interwebs, but I must give credit where credit is due. I've modified it to suit my needs.
+A special thank you to Dalmiro Grañas (he's on the support staff at Octopus Deploy, and is awesome!). The RegisterTentacle.ps1 was from him. I can't remember exactly where it is on the interwebs, but I must give credit where credit is due. I've modified it to suit my needs!
 
 ##### RegisterTentacle.ps1
 
@@ -238,6 +238,9 @@ add-windowsfeature web-webserver -includeallsubfeature
 
 add-windowsfeature web-mgmt-tools -includeallsubfeature
 ```
+
+Notes
+- The only time old tentacles are cleared is on a scaling operation, there is probably a better way to handle this - please let me know!
 
 ##### Cloud Formation Setup
 
