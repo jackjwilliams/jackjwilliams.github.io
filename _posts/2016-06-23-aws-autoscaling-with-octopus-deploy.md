@@ -71,7 +71,7 @@ Let me first give a shout out to Dalmiro Grañas (he's on the support staff at O
 
 Creates a new tentacle with our octopus server and pushes the latest release to it. Also clears out old tentacles that are dead.
 
-{% highlight csharp %}
+```powershell
 param (
     # Can be a list
 	[Parameter(Mandatory=$True)]
@@ -233,8 +233,7 @@ copy-item C:\setup\OctoPosh-0.3.5\* $destDir -force -Recurse -Verbose
 add-windowsfeature web-webserver -includeallsubfeature
 
 add-windowsfeature web-mgmt-tools -includeallsubfeature
-
-{% endhighlight %}
+```
 
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
