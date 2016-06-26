@@ -78,21 +78,21 @@ Creates a new tentacle with our octopus server and pushes the latest release to 
 ```powershell
 param (
     # Can be a list
-	[Parameter(Mandatory=$True)]
-	[string[]] $env, 
+    [Parameter(Mandatory=$True)]
+    [string[]] $env, 
 	
-	# PROD or AUX
-	[Parameter(Mandatory=$True)]
-	[string] $tentaclePrefix, 
+    # PROD or AUX
+    [Parameter(Mandatory=$True)]
+    [string] $tentaclePrefix, 
 	
-	[Parameter(Mandatory=$True)]
-	[string] $tentaclePort = "10933",
+    [Parameter(Mandatory=$True)]
+    [string] $tentaclePort = "10933",
 	
     # Can be a list
-	[string[]] $roles = @("Webserver"),
+    [string[]] $roles = @("Webserver"),
 	
     # Octopus API key
-	[string] $apiKey = ""
+    [string] $apiKey = ""
 	
 )
 
