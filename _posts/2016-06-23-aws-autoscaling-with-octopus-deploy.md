@@ -98,7 +98,7 @@ param (
 $OctopusAPIkey = $apiKey 
 
 # Octopus URL
-$OctopusURL = "http://octopusbt.praeses.com"
+$OctopusURL = "http://my.octopusserver.com"
 
 # Tentacle IP. Remember it must be https. We can get this from AWS Metadata.
 $TentacleIP = (Invoke-WebRequest http://169.254.169.254/latest/meta-data/public-ipv4).Content
