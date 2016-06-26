@@ -6,6 +6,7 @@ mathjax: false
 featured: false
 comments: false
 title: AWS AutoScaling with Octopus Deploy
+subtitle: Subtitle
 ---
 ## Fear Not, It Can Be Done
 
@@ -53,9 +54,10 @@ I mention patience twice because testing your scripts takes killing one instance
 3. Turn OFF auto-rollback when your cloud fails to start (otherwise you can't look at the logs).
 
 #### Why Multple Environments and Multiple Roles
-More explanation as to why my instances belong to multiple environents and have multiple roles. This project doesn't have a ton of users yet, so spinning up a seperate instance for staging, demo and production, along with seperate database instances for each was too costly. But the infrastructure is in place to do it.
 
-The current configuration is something like this: We have two "environments" that get spun up with a CloudFormation script. There is a parameter that says whether or not the environment is "aux" (which means it hosts demo, staging and training), or "prod" which means it's the production environment. 
+More explanation as to why my instances belong to multiple environents and have multiple roles. This project doesn't have a ton of users yet, so spinning up a seperate instance for staging, demo and production, along with seperate database instances for each was too costly. **But the infrastructure is in place to do it**.
+
+The current configuration is something like this: Two "environments" can get spun up with a CloudFormation script. There is a Cloud Formation parameter that says whether or not the environment is "aux" (which means it hosts demo, staging and training), or "prod" which means it's the production environment. 
 
 This works great for now and can be changed fairly easy when it's time to seriously scale. The main thing is that it's all done in a CloudFormation template, so adding servers is easy. In addition to that, all of the services are modular (there are a few: the Web Server, Image Server, and Hangfire Server). It doesn't matter if they're deployed to IIS on one instance, or three instances - it all works the same.
 
@@ -71,34 +73,37 @@ Creates a new tentacle with our octopus server and pushes the latest release to 
 
 {% highlight powershell %}
 param (
+    # Can be a list
 	[Parameter(Mandatory=$True)]
-	[string[]] $env, # Can be a list
+	[string[]] $env, 
 	
-	#PROD or AUX
+	# PROD or AUX
 	[Parameter(Mandatory=$True)]
-	[string] $tentaclePrefix, # So we can have tentacles named PROD-123.23.23.33 or AUX-123.23.23.33
+	[string] $tentaclePrefix, 
 	
 	[Parameter(Mandatory=$True)]
 	[string] $tentaclePort = "10933",
 	
-	[string[]] $roles = @("Webserver"), # Can be a list
+    # Can be a list
+	[string[]] $roles = @("Webserver"),
 	
-	[string] $apiKey = "" # Otopus API Key
+    # Octopus API key
+	[string] $apiKey = ""
 	
 )
 
-# Config - This is used to automatically register the tentacle with the octopus server
+# Config
 
-# API Key to authenticate in Octopus
-$OctopusAPIkey = $apiKey
+# Octopus API Key
+$OctopusAPIkey = $apiKey 
 
-# Octopus server url
-$OctopusURL = "http://my.octopusserver.com" 
+# Octopus URL
+$OctopusURL = "http://octopusbt.praeses.com"
 
-# Tentacle URL. Handy way to get the IP using AWS metadata
-$TentacleIP = (Invoke-WebRequest http://169.254.169.254/latest/meta-data/public-ipv4).Content 
+# Tentacle IP. Remember it must be https. We can get this from AWS Metadata.
+$TentacleIP = (Invoke-WebRequest http://169.254.169.254/latest/meta-data/public-ipv4).Content
 
-# So we can have tentacles named PROD-123.23.23.33 or AUX-123.23.23.33
+# Results in a name like PROD-123.22.33.112 or AUX-123.22.33.112
 $TentacleName = "$tentaclePrefix-$TentacleIP"
 
 # Port the Listening Tentacle will use to comunicate with the Octopus server
@@ -107,82 +112,101 @@ $TentaclePort = $tentaclePort
 # Tentacle URL
 $TentacleURL = "https://${TentacleIP}:${TentaclePort}/"
 
-# Tentacle Thumbprint (we'll get it later with black magic)
+# Tentacle Thumbprint
 $TentacleThumbprint = ""
 
-# What roles will this tentacle have?
-$TentacleRoles = $roles 
+# Tentacle roles (can be a list)
+$TentacleRoles = $roles
 
-# What environments will this tentacle be registered to?
-$EnvironmentIDs = $env
+# Tentacle environments (can be a list) 
+$EnvironmentIDs = $env 
 
+# Tentacle exe location on default install
 $tentacleExe = 'C:\Program Files\Octopus Deploy\Tentacle\Tentacle.exe'
 
-# Get the Tentacles Thumbprint with black magic (I'm no Powershell or regex expert, but this works)
-$TentacleThumbprint = & $tentacleExe "show-thumbprint" "--nologo" | Out-String
-$TentacleThumbprint = $TentacleThumbprint -match "\:(.*)" ; $matches[1].Trim()
+# This gets the tentacles thumbprint through black magic
+[xml]$doc = Get-Content C:\Octopus\Tentacle.config
+$nodes = Select-Xml "//set[@key='Tentacle.CertificateThumbprint']" $doc
+$TentacleThumbprint = $nodes.Node.'#text'
 
-# Octo.exe deploy-release prep. This is used to push the latest release to our new tentacle.
+# Octo deploy-release. This is used to push the latest release to our new tentacle. 
 
-# Path to the executable
-$octoExe = "c:\setup\octopus\octo\octo.exe" 
-$octoArg1 = "deploy-release" # What we are doing
-$octoArg2 = "--version=latest" # The version we want (actually gets changed later)
-$octoArg3 = "--deploy-to" # Deploying to ... which environment?
-$octoArg4 = "" # Reserved for the environment
-$octoArg5 = "--specificmachines=${TentacleName}" # Only deploy to this tentacle
+# Path to octo.exe
+$octoExe = "c:\setup\octopus\octo\octo.exe"
 
-# Octoposh import
+# What we are doing (deploying a release)
+$octoArg1 = "deploy-release"
+
+# Which release? (this gets changed later to an explicit version)
+$octoArg2 = "--version=latest"
+
+# Which environment
+$octoArg3 = "--deployto"
+
+# Reserved for the environment name
+$octoArg4 = ""
+
+# Which machine to deploy to (PROD-XX.XX.XX.XX or AUX-XX.XX.XX.XX)
+$octoArg5 = "--specificmachines=${TentacleName}"
+
+# Project and other variables
+$octoArg6 = "--project=MY_PROJECT"
+$octoArg7 = "--apiKey=$OctopusAPIkey"
+$octoArg8 = "--server=$OctopusURL"
+
+# Import and setup Octoposh
 Import-Module Octoposh
+Set-OctopusConnectionInfo -URL $OctopusURL -APIKey $OctopusAPIkey
 
-# Use Octoposh to start the new machine creation
+# Here we are sort of instantiating a new instance of a machine
 $machine = Get-OctopusResourceModel -Resource Machine
 
-# Add all environments to the machine
-for ($cnt=0; $cnt -lt $env.length; $cnt++) {
+# Set the environment Ids of the machine
+for($cnt=0; $cnt -lt $env.length; $cnt++){
 	$environment = Get-OctopusEnvironment -EnvironmentName $env[$cnt]
 	$machine.EnvironmentIds.Add($environment.id)
 }
 
-# Add all roles to the machine
-for ($roleCount=0; $roleCount -lt $roles.length; $roleCount++) {
+# Set the roles of the machine
+for($roleCount=0; $roleCount -lt $roles.length; $roleCount++){
 	$machine.Roles.Add($roles[$roleCount])
 }
 
-# Assign the machine name
+# Set the name of the machine
 $machine.name = $TentacleName
 
-# Make the new Listening Tentacle Endpoint
+# Set the endpoing and thumbprint of the machine
 $machineEndpoint = New-Object Octopus.Client.Model.Endpoints.ListeningTentacleEndpointResource
-
-# Set endpoint
 $machine.EndPoint = $machineEndPoint
-
-# Set the machines tentacle URL
 $machine.EndPoint.Uri = $TentacleURL
+$machine.EndPoint.Thumbprint = $TentacleThumbprint
 
-# Set the thumbprint
-$machine.EndPoint.Thumbprint = $TentacleThumbprint 
+# Clean environment of orphaned machines
+# Note: This may not be the best time or place to do this, but I have not found a better way yet.
+for ($i=0; $i -lt $env.length;$i++){
+	$octoArg4 = $env[$i]
+    & $octoExe "clean-environment" "--environment=$octoArg4" "--status=Offline" $octoArg7 $octoArg8
+}
 
-# Finally, create the new resource! Now it's in our Octopus Deploy Server
+# Finally, create the new machine on the Octopus Server
 New-OctopusResource -Resource $machine
 
 # Deploy to each environment passed in
 for ($i=0; $i -lt $env.length;$i++){
-    # Get environment name
+    # Environment name
 	$octoArg4 = $env[$i]
-
-    # We have to pull the environment info from the octopus server, to get the latest release version
+    
+    # To get the latest version in each env, we have to pull the env
     $octoEnv = Get-OctopusEnvironment $octoArg4
 
-    # Get the latest version number from the environment
+    # Get its latest released version
     $latestVersion = $octoEnv.LatestDeployment.ReleaseVersion
 
-    # Set the version argument for octo.exe
+    # And use that version to deploy to our newest tentacle
     $octoArg2 = "--version=$latestVersion"
 
-    # Finally, deploy to our machine
-	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5
+    # Deploy!
+	& $octoExe $octoArg1 $octoArg2 $octoArg3 $octoArg4 $octoArg5 $octoArg6 $octoArg7 $octoArg8
 }
 
 {% endhighlight %}
