@@ -114,6 +114,10 @@ prose:
           options:
             - name: "C#"
               value: C#
+            - name: "AWS"
+              value: AWS
+            - name: "Octopus Deploy"
+              value: Octopus Deploy
             - name: "Personal"
               value: personal
           alterable: true

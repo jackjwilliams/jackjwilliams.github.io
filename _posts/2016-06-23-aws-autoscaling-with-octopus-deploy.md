@@ -1,11 +1,16 @@
 ---
 layout: post
-published: false
+published: true
 author: Jack Williams
 mathjax: false
 featured: false
 comments: false
 title: AWS AutoScaling with Octopus Deploy
+category: "AWS"
+tags: 
+  - AWS
+  - Octopus
+  - Autoscale
 ---
 ## Fear Not, It Can Be Done
 
