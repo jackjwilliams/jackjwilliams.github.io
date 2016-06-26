@@ -1,6 +1,6 @@
 ---
 layout: post
-published: true
+published: false
 author: Jack Williams
 mathjax: false
 featured: false
@@ -249,7 +249,7 @@ Here is the default config section, which includes the commands, packages, files
 "default":{  
       "commands":{  
          "1-prepare-ec2-instance":{  
-            "command":"@powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\setup\\prepare-ec2-instance.ps1\"",
+            "command":"@powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\setup\\PrepareEC2Instance.ps1\"",
             "waitAfterCompletion":"0"
          }
       },
@@ -273,7 +273,7 @@ Here is the default config section, which includes the commands, packages, files
                ]
             }
          },
-         "C:\\setup\\prepare-ec2-instance.ps1":{  
+         "C:\\setup\\PrepareEC2Instance.ps1":{  
             "source":{  
                "Fn::Join":[  
                   "/",
@@ -282,7 +282,7 @@ Here is the default config section, which includes the commands, packages, files
                      {  
                         "Ref":"BucketName"
                      },
-                     "prepare-ec2-instance.ps1"
+                     "PrepareEC2Instance.ps1"
                   ]
                ]
             }
@@ -338,6 +338,13 @@ Here is the default config section, which includes the commands, packages, files
 
 ```
 
+Notes
+
+- Under commands, it simply runs the prepare-ec2-instance.ps1 script
+- Under packages, I link to the tentacle installation package, it installs for us
+- Under files, I put my RegisterTentacle and PrepareEC2Instance PS1 files in AWS S3, an have a Cloud Formation parameter to tell which bucket I put them in
+- Under sources, we download the OctopusTools.3.3.6.zip file which gives us access to octo.exe
+- Under sources, we download OctoPosh, a nice module made by Dalmirog from Octopus Support
 
 
 
