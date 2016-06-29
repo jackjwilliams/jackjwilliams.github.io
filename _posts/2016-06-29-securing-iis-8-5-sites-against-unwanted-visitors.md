@@ -82,7 +82,10 @@ SecRule GEO:COUNTRY_CODE3 "!@streq USA" "id:'992211',phase:1,t:none,log,deny,msg
 
 That should be it! If you want more detailed logging, open modsecurity.conf in the root directory, find the lines that reference SecDebugLog and SecDebugLogLevel and set them, something like below.
 
+
+```
 SecDebugLog c:\inetpub\temp\debug.log
 SecDebugLogLevel 9
+```
 
 Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this file for the rule number "992211" to see lookups happening.
