@@ -62,7 +62,7 @@ SecRule REMOTE_ADDR "@geoLookup" "id:'992210',phase:1,t:none,pass,nolog"
 SecRule GEO:COUNTRY_CODE3 "!@streq USA" "id:'992211',phase:1,t:none,log,deny,msg:'Client IP not from USA'"
 ```
 
-Next you need to download the GeoLiteCity data file, which has lookups to determine what IP's are in what Countries. The advantage to this approach is this is a data file and requires no additional DNS / HTTP calls to external servers. The file can be found [here](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz).
+Next you need to download the GeoLiteCity data file, which has lookups to determine what IP's are in what Countries. The advantage to this approach is this is a data file and requires no additional DNS / HTTP calls to external services. The file can be found [here](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz).
 
 Extract it to the C:\Program Files\ModSecurity IIS\ so that the GeoLiteCity.dat file is there. Line one of our new rule conf file (SetGeoLookupDb GeoLiteCity.dat) uses this data file.
 
