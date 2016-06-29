@@ -88,4 +88,4 @@ SecDebugLog c:\inetpub\temp\debug.log
 SecDebugLogLevel 9
 ```
 
-Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this file for the rule number "992211" to see lookups happening.
+Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this debug.log for the rule number "992211" to see lookups happening.
