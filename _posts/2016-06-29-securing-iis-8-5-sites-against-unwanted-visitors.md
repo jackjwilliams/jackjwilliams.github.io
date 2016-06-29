@@ -48,7 +48,7 @@ To fix: Open the C:\Program Files\ModSecurity IIS\modsecurity_iis.conf file and 
 Whew, now our site works again.
 
 ## The Source of the Problem
-One thing I noticed right off the bat was that all of these requests were from outside of the United States. Given that the application I'm trying to protect is for Law Enforcement Agencies within the United States, I need one rule to ring them all: Block all IP's outside the US.
+One thing I noticed right off the bat was all of these requests were from outside of the United States. Given that the application I'm trying to protect is for Law Enforcement Agencies within the United States, I need one rule to ring them all: Block all IP's outside the US.
 
 Let's create our new rule!
 
