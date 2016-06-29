@@ -32,7 +32,7 @@ At around 4:00 PM, Tuesday, June 28'th my Raygun inbox started filling with 404 
 
 If it were just a few I would have chalked it up to some crawlers. But these were persistent, about 12 hours worth of pummeling our server trying to discover flaws / files in our system. Or maybe it was a DoS attack - I'm not really sure.
 
-I did some research and found a nifty little HTTP Module called ModSecurity that works with IIS 8.5.
+I did some research and found a nifty little HTTP Module called ModSecurity that works with IIS 8.5. Just install it on your IIS server.
 
 [Here](https://www.modsecurity.org/download.html "ModSecurity Download Page") is the download page.
 
