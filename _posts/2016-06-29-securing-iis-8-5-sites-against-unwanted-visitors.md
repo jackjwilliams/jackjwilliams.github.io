@@ -11,10 +11,13 @@ tags:
   - DDoS
   - IIS
   - Security
+subtitle: Subtitle
 ---
 ## I'm Being Attacked!
 
-At around 4:00 PM, Tuesday, June 28'th my Raygun inbox started filling with 404 errors (lots and lots of them, neverending). My IIS logs looked something like this:
+At around 4:00 PM, Tuesday, June 28'th my Raygun inbox started filling with 404 errors (lots and lots of them, never ending). My IIS logs looked something like this:
+
+
 ```
 2016-06-29 08:17:02 10.X.X.X GET /assets/plugins/lightbox/Images/url - 443 - 10.X.X.X Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64;+rv:47.0)+Gecko/20100101+Firefox/47.0 - 302 0 2 0 212.83.40.238
 2016-06-29 08:17:02 10.X.X.X GET /assets/plugins/lightbox/Images/urlrewriter - 443 - 10.X.X.X Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64;+rv:47.0)+Gecko/20100101+Firefox/47.0 - 302 0 2 15 212.83.40.238
@@ -36,7 +39,7 @@ I did some research and found a nifty little HTTP Module called ModSecurity that
 You also need vcredist for VC++ 2013, and it can be downloaded [here](https://www.microsoft.com/en-us/download/details.aspx?id=40784). INSTALL THIS FIRST.
 
 ## Installation Notes - IMPORTANT
-Once you install ModSecurity, it will immediately take affect on all sites! ModSecurity works with a set of rules, all stored in files in the C:\Program Files\ModSecurity IIS\ directory. Out of the box it gives you a set of OWASP base rules in the C:\Program Files\ModSecurity IIS\owasp_crs\base_rules directory. These are TOO RESTRICTIVE! I could not even log into my own site because it was stripping the POST values.
+Once you install ModSecurity, it will immediately take affect on all sites! ModSecurity works with a set of rules, all stored in files in the C:\Program Files\ModSecurity IIS\ directory. Out of the box it gives you a set of OWASP base rules in the C:\Program Files\ModSecurity IIS\owasp_crs\base_rules directory. **These are TOO RESTRICTIVE! I could not even log into my own site because it was stripping the POST values**.
 
 To fix: Open the C:\Program Files\ModSecurity IIS\modsecurity_iis.conf file and comment out the below line using a #.
 
@@ -80,7 +83,37 @@ SecRule GEO:COUNTRY_CODE3 "!@streq USA" "id:'992211',phase:1,t:none,log,deny,msg
 
 That should be it! If you want more detailed logging, open modsecurity.conf in the root directory, find the lines that reference SecDebugLog and SecDebugLogLevel and set them, something like below.
 
+
+```
 SecDebugLog c:\inetpub\temp\debug.log
 SecDebugLogLevel 9
+```
 
-Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this file for the rule number "992211" to see lookups happening.
+Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this debug.log for the rule number "992211" to see lookups happening.
+
+Now the only abnormal activity I see is http://www.uptimerobot.com/ hitting every few minutes. I can deal with that (or I can easily block it).
+
+## Update
+
+
+And here the rule is in action
+
+
+```
+[/Error/NotFound][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/content/][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/dashboard][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/aux][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/docs][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/docs][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/file][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/global.asa][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/home][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/lost+found][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/lpt1][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/useradmin][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/useradminnnnn][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/content/css][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/content/css][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+[/content/css][1] Access denied with code 403 (phase 1). Match of "streq USA" against "GEO:COUNTRY_CODE3" required. [file "C:\Program Files\ModSecurity IIS\owasp_crs\base_rules\restrict_non_usa_ip_address.conf"] [line "3"] [id "992211"] [msg "Client IP not from USA"]
+```
