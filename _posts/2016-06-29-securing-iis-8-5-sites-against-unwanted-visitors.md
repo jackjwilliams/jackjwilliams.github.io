@@ -15,6 +15,8 @@ tags:
 ## I'm Being Attacked!
 
 At around 4:00 PM, Tuesday, June 28'th my Raygun inbox started filling with 404 errors (lots and lots of them, never ending). My IIS logs looked something like this:
+
+
 ```
 2016-06-29 08:17:02 10.X.X.X GET /assets/plugins/lightbox/Images/url - 443 - 10.X.X.X Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64;+rv:47.0)+Gecko/20100101+Firefox/47.0 - 302 0 2 0 212.83.40.238
 2016-06-29 08:17:02 10.X.X.X GET /assets/plugins/lightbox/Images/urlrewriter - 443 - 10.X.X.X Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64;+rv:47.0)+Gecko/20100101+Firefox/47.0 - 302 0 2 15 212.83.40.238
