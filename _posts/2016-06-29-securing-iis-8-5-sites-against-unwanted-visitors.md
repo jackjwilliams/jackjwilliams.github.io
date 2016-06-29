@@ -39,7 +39,7 @@ I did some research and found a nifty little HTTP Module called ModSecurity that
 You also need vcredist for VC++ 2013, and it can be downloaded [here](https://www.microsoft.com/en-us/download/details.aspx?id=40784). INSTALL THIS FIRST.
 
 ## Installation Notes - IMPORTANT
-Once you install ModSecurity, it will immediately take affect on all sites! ModSecurity works with a set of rules, all stored in files in the C:\Program Files\ModSecurity IIS\ directory. Out of the box it gives you a set of OWASP base rules in the C:\Program Files\ModSecurity IIS\owasp_crs\base_rules directory. **These are TOO RESTRICTIVE! I could not even log into my own site because it was stripping the POST values**.
+Once you install ModSecurity, it will immediately take affect on all sites (**and potentially break them**)! ModSecurity works with a set of rules, all stored in files in the C:\Program Files\ModSecurity IIS\ directory. Out of the box it gives you a set of OWASP base rules in the C:\Program Files\ModSecurity IIS\owasp_crs\base_rules directory. **These are TOO RESTRICTIVE! I could not even log into my own site because it was stripping the POST values**.
 
 To fix: Open the C:\Program Files\ModSecurity IIS\modsecurity_iis.conf file and comment out the below line using a #.
 
