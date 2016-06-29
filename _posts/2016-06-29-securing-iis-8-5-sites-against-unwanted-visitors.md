@@ -2,7 +2,6 @@
 layout: post
 published: true
 author: author
-subtitle: Subtitle
 mathjax: false
 featured: false
 comments: false
