@@ -4,8 +4,13 @@ published: true
 author: author
 mathjax: false
 featured: false
-comments: false
+comments: true
 title: Securing IIS 8.5 Sites Against Unwanted Visitors
+category: IIS
+tags:
+  - DDoS
+  - IIS
+  - Security
 ---
 ## I'm Being Attacked!
 
