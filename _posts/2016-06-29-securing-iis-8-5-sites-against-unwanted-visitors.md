@@ -61,4 +61,22 @@ Extract it to the C:\Program Files\ModSecurity IIS\ so that the GeoLiteCity.dat 
 
 Now modify your C:\Program Files\ModSecurity IIS\modsecurity_iis.conf file to include our new rule (I put it near the top to block any other rules from having to run).
 
+```
 Include restrict_non_usa_ip_address.conf
+```
+
+## Special Note For AWS / Load Balancers
+If the IP that you typically see is your Load Balancers IP (as it was for me), you need to modify your restrict_non_usa_ip_address.conf to use the X-FORWARDED-FOR header instead of REMOTE_ADDR. In my case, AWS Load Balancers ALWAYS forward this. YMMV. See below.
+
+```
+SecGeoLookupDb GeoLiteCity.dat
+SecRule REQUEST_HEADERS:X-FORWARDED-FOR "@geoLookup" "id:'992210',phase:1,t:none,pass,nolog"
+SecRule GEO:COUNTRY_CODE3 "!@streq USA" "id:'992211',phase:1,t:none,log,deny,msg:'Client IP not from USA'"
+```
+
+That should be it! If you want more detailed logging, open modsecurity.conf in the root directory, find the lines that reference SecDebugLog and SecDebugLogLevel and set them, something like below.
+
+SecDebugLog c:\inetpub\temp\debug.log
+SecDebugLogLevel 9
+
+Log Level 9 is HIGHLY VERBOSE and will generate 100's of MB's in a short time for an active (or inactive) site. You can search this file for the rule number "992211" to see lookups happening.
