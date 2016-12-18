@@ -41,8 +41,3 @@ It supports "channels" like Dev/Beta/Release.
 I'm sold!
 
 
-
-
-
-
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
