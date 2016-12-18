@@ -38,6 +38,20 @@ It supports delta update packages
 
 It supports "channels" like Dev/Beta/Release.
 
-I'm sold!
+I'm sold! Let's get started ...
+
+But first let me give props to Chase Florell, who got me going with [this](https://chaseflorell.github.io/devops/2015/08/07/deploying-squirrel.windows-apps-with-octopus-deploy/) amazing post! This is mostly all of his suggestions, with a few tweaks for promoting between channels, desktop icon names, etc...
+
+### Issues I Ran Into
+
+* Desktop Icon Names and how to change them (MyClient, MyClient Beta, MyClient Nightly)
+* Building once, deploying everywhere - NOT
+* Lots of Octopus Channels, Environments and Lifecycles (see [this](http://help.octopusdeploy.com/discussions/questions/9063-build-once-deploy-everywhere-with-exes) Octopus forum post I made)
+
+
+
+
+
+
 
 
