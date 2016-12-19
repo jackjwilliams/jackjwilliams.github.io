@@ -49,9 +49,6 @@ But first let me give props to Chase Florell, who got me going with [this](https
 * Lots of Octopus Channels, Environments and Lifecycles (see [this](http://help.octopusdeploy.com/discussions/questions/9063-build-once-deploy-everywhere-with-exes) Octopus forum post I made)
 
 
+### General Process
 
-
-
-
-
-
+1. Build WPF application
