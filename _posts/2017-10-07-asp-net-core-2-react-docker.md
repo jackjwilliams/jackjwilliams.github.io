@@ -1,12 +1,12 @@
 ---
 layout: post
 published: true
-author: author
-subtitle: finally
+author: Jack Williams
+subtitle: 
 category: personal
 mathjax: false
-featured: false
-comments: false
+featured: true
+comments: true
 title: ASP.NET Core 2 + React + Docker
 ---
 ## ASP.NET Core 2 + React Starter + Docker
