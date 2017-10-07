@@ -2,13 +2,12 @@
 layout: post
 published: true
 author: author
-subtitle: Subtitle
+subtitle: finally
 category: personal
 mathjax: false
 featured: false
 comments: false
 title: ASP.NET Core 2 + React + Docker
-modified: ''
 ---
 ## ASP.NET Core 2 + React Starter + Docker
 
