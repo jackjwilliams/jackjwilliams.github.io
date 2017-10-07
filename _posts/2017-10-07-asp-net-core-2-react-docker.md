@@ -32,7 +32,7 @@ This required significant modifications to the Dockerfile, as well as modificati
 1. Move the Dockerfile up to your root src folder or higher
 2. Dockerfile contents (this will build + package a production image)
 
-```
+```docker
 #Build
 FROM microsoft/aspnetcore-build:1.0-2.0 AS build-env
 COPY src /app
