@@ -32,13 +32,13 @@ This required significant modifications to the Dockerfile, as well as modificati
 1. Move the Dockerfile up to your root src folder or higher
 2. Dockerfile contents (this will build + package a production image)
 
-```docker
-	#Build
-	FROM microsoft/aspnetcore-build:1.0-2.0 AS build-env
-	COPY src /app
-	WORKDIR /app
-	RUN ["dotnet", "restore", "PROJECT.sln"]
-	RUN set -ex; \
+
+#Build
+FROM microsoft/aspnetcore-build:1.0-2.0 AS build-env
+COPY src /app
+WORKDIR /app
+RUN ["dotnet", "restore", "PROJECT.sln"]
+RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
 		apt-get update; \
 		apt-get install -y --no-install-recommends \
@@ -46,17 +46,17 @@ This required significant modifications to the Dockerfile, as well as modificati
 			dirmngr \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
-	fi && curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get update && apt-get install -y 	build-essential nodejs
+	fi && curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get update && apt-get install -y build-essential nodejs
 
-	# copy everything else and build
-	COPY . ./
-	RUN dotnet publish -c Release -o out PROJECT.sln
+# copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out PROJECT.sln
 
-	#Runtime 
-	FROM microsoft/aspnetcore:2.0.0
+#Runtime 
+FROM microsoft/aspnetcore:2.0.0
 
-	WORKDIR /app
-	COPY --from=build-env /app/PROJECT.Web/out ./
-	ENTRYPOINT ["dotnet", "PROJECT.Web.dll"]
-```
+WORKDIR /app
+COPY --from=build-env /app/PROJECT.Web/out ./
+ENTRYPOINT ["dotnet", "PROJECT.Web.dll"]
+
 
