@@ -22,6 +22,7 @@ src/PROJECT.Web
 src/PROJECT.Core
 
 With their respective .sln file
+
 src/PROJECT.sln
 
 The default Dockerfile location didn't work for me, as PROJECT.Web depended on PROJECT.Core.
