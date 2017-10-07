@@ -59,3 +59,5 @@ WORKDIR /app
 COPY --from=build-env /app/PROJECT.Web/out ./
 ENTRYPOINT ["dotnet", "PROJECT.Web.dll"]
 {% endhighlight %}
+
+3. Now run `docker build -t webapp .` in your Dockerfile location
