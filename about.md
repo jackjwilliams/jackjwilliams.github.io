@@ -1,39 +1,11 @@
 ---
 layout: page
-permalink: /about/index.html
-title: Jack Williams
-tags: 
-  - Amey
-  - Jadiye
-chart: true
-published: true
+title: About
+permalink: /about/
 ---
 
+This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
 
+You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
 
-{% assign total_words = 0 %}
-{% assign total_readtime = 0 %}
-{% assign featuredcount = 0 %}
-{% assign statuscount = 0 %}
-
-{% for post in site.posts %}
-    {% assign post_words = post.content | strip_html | number_of_words %}
-    {% assign readtime = post_words | append: '.0' | divided_by:200 %}
-    {% assign total_words = total_words | plus: post_words %}
-    {% assign total_readtime = total_readtime | plus: readtime %}
-    {% if post.featured %}
-    {% assign featuredcount = featuredcount | plus: 1 %}
-    {% endif %}
-{% endfor %}
-
-Thanks for taking the time to check out my blog - this is my first! I recently went to a developer conference and learned it is about time I share some knowledge and quit taking so much. This is my attempt to do that. 
-
-I'm a developer by day and well, by night too. I develop all the things.
-
-My primary focus over the last few years has been C# .NET MVC (2/3/4/5), Android and a sprinkling of Ruby on Rails.
-
-Current stats:
-
-{{ site.posts | size }} posts in {{ site.categories | size }} categories which combined have {{ total_words }} words. 
-
-{% if featuredcount != 0 %}There are <a href="{{ site.url }}/featured">{{ featuredcount }} featured posts</a>, you should definitely check those out.{% endif %}
+You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)

@@ -1,145 +1,15 @@
-title:            Jack Williams
-description:      "Program All The Things"
-logo:             logo.png
-logo_inverse:     logo_inverse.png
-disqus_shortname: jacked
-share:            true
-dropcap:	   true
-# Change url to your domain. Leave localhost server or blank when working locally.
-# or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same 
-# whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
-url:        	 http://jackjwilliams.github.io
+# Site settings
+title: Your awesome title
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://jackjwilliams.github.io" # the base hostname & protocol for your site
+twitter_username: jackkedd
+github_username:  jackjwilliams
 
-# Owner/author information
-owner:
-  name:           Jack Williams
-  avatar:         me.jpg
-  email:          williams.jackj@gmail.com
-  # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Learn as much by writing as by reading - Lord Acton
-  # Social networking links used in footer. Update and remove as you like.
-  twitter:        jackkedd
-  facebook:       
-  github:         jackjwilliams    
-  instagram:      
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:    
-
-# Analytics and webmaster tools stuff goes here
-google_analytics: UA-66843455-1
-google_verify:      
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:         
-
-# Links to include in footer navigation
-# For external links add external: true
-links:
-  - title: Home
-    url: /
-    external: false
-    icon: home
-  - title: Categories
-    url: /categories
-  - title: About
-    url: /about
-
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/Chicago
-future:      true
-highlighter: rouge
-markdown:    kramdown
-paginate:    5
-paginate_path: "page:num"
-
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   pretty
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: false
-
-  coderay:
-    coderay_line_numbers: true
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
-
-prose:
-  rooturl: '_posts'
-  siteurl: 'http://jackjwilliams.github.io/'
-  relativeLinks: 'http://jackjwilliams.github.io/links.jsonp'
-  media: 'images'
-  metadata:
-    _posts:
-      - name: "published"
-        field:
-          label: "Published"
-          element: "checkbox"
-          value: "true"
-      - name: "author"
-        field:
-          label: "Author"
-          element: "text"
-          value: "author"
-      - name: "layout"
-        field:
-          element: "hidden"
-          label: "Layout"
-          value: "post"
-      - name: "title"
-        field:
-          label: "Title"
-          element: "text"
-          value: "Title"
-      - name: "subtitle"
-        field:
-          label: "Subtitle"
-          element: "text"
-          value: "Subtitle"
-      - name: "modified"
-        field:
-          element: "text"
-          label: "Has this page been modified?"
-          placeholder: "YYYY-MM-DD"
-      - name: "category"
-        field:
-          element: "select"
-          label: "Add category"
-          placeholder: "Choose category"
-          value: personal
-          options:
-            - name: "C#"
-              value: C#
-            - name: "IIS"
-              value: IIS
-            - name: "AWS"
-              value: AWS
-            - name: "Octopus Deploy"
-              value: Octopus Deploy
-            - name: "Personal"
-              value: personal
-          alterable: true
-      - name: "mathjax"
-        field:
-          element: "checkbox"
-          label: "MathJax"
-          value: false
-      - name: "featured"
-        field:
-          element: "checkbox"
-          label: "Featured?"
-          value: false
-      - name: "comments"
-        field:
-          element: "checkbox"
-          label: "Comments"
-          value: false
-
-gems:
-- jemoji
-
-theme: jekyll-theme-hacker
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-hacker 
