@@ -141,3 +141,5 @@ prose:
 
 gems:
 - jemoji
+
+theme: jekyll-theme-hacker
