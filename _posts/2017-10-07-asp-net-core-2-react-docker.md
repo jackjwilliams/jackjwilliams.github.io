@@ -60,4 +60,6 @@ COPY --from=build-env /app/PROJECT.Web/out ./
 ENTRYPOINT ["dotnet", "PROJECT.Web.dll"]
 {% endhighlight %}
 
-3. Now run `docker build -t webapp .` in your Dockerfile location
+Now run `docker build -t webapp .` in your Dockerfile location
+
+You should now be able to browse to your new ASP.NET Core 2 + React website!
