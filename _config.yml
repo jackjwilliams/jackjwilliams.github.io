@@ -12,4 +12,4 @@ github_username:  jackjwilliams
 repository: jackjwilliams/jackjwilliams.github.io
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-hacker
+theme: jekyll-theme-cayman
